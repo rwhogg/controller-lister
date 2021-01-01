@@ -1,5 +1,11 @@
-task default: %w[bundle]
+task default: %W[bundle]
 
-task bundle: do
-    pyinstaller controller-list.py
+task bundle: %W[dist/controller-list.exe dist/controller-list-installer.exe]
+
+%W[controller-list.py].each do |pyfile|
+    sh "pyinstaller.exe --noconsole --onefile #{pyfile}"
+end
+
+%W[installer.nsi].each do |installerscript|
+   sh "makensis #{installerscript}"
 end
