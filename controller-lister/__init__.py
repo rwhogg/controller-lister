@@ -23,15 +23,17 @@ def render_controllers():
     for child in app.children:
         child.destroy()
     box = Box(app)
-    message = Text(box, text="Detected Controllers")
+    message = Text(box, text="Detected Controllers\n")
     count = pygame.joystick.get_count()
     controllers = [pygame.joystick.Joystick(x) for x in range(count)]
     i = 0
     for controller in controllers:
         controller_name = controller.get_name()
         controller_guid = controller.get_guid()
+        controller_power_level = controller.get_power_level()
         name_text = Text(box, controller_name)
         guid_text = Text(box, controller_guid)
+        power_level_text = Text(box, "Power Level: " + controller_power_level)
         i += 1
 
 def check_controllers():
